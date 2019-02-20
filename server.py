@@ -61,8 +61,15 @@ def send(): #creating a function called "send"
 
 	sender_id = 0
 	receiver_id = 0
+<<<<<<< HEAD
 	senderFound = False #
 	receiverFound = False #
+=======
+	senderFound = False
+	receiverFound = False
+	sender_name = ""
+	receiver_name = ""
+>>>>>>> c35c11925263998fea09d52f659444acaf6927f0
 
 	#query for checking if username SENDER exists in the database
 	c.execute("SELECT id FROM users WHERE username='{}'".format(sender))
@@ -72,6 +79,8 @@ def send(): #creating a function called "send"
 		sender_id = c.fetchone()[0]
 		print(sender_id)
 		senderFound = True
+		c.execute("SELECT fname FROM users WHERE username='{}'".format(sender))
+		sender_name = c.fetchone()[0]
 	else:
 		print("Empty")
 
@@ -83,6 +92,8 @@ def send(): #creating a function called "send"
 		receiver_id = c.fetchone()[0]
 		print(receiver_id)
 		receiverFound = True
+		c.execute("SELECT fname FROM users WHERE username='{}'".format(receiver))
+		receiver_name = c.fetchone()[0]
 	else:
 		print("Empty")
 
@@ -99,7 +110,7 @@ def send(): #creating a function called "send"
 
 
 	# print(a_message)
-	return json.dumps({'status':'OK','a_message':a_message});
+	return json.dumps({'status':'OK','a_message':a_message, 'sender': sender_name, 'receiver': receiver_name });
 
 # @app.route('/signUpUser', methods=['POST'])
 # def signUpUser():
